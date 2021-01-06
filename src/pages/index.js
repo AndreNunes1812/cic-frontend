@@ -1,5 +1,5 @@
 import React from "react";
-//import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
 
@@ -17,22 +17,29 @@ import "./styles.css";
 */
 const Pages = () => {
 
-  /*const location = useLocation();
   const history = useHistory();
-*/
+
+  const handleClickVendedor=()=> {
+    history.push("/vendedor");
+  }
+
+  const handleClickAdcionar=()=> {
+    history.push("/catalagos");
+  }
+
   return (
       <Container fluid="xl" >
         <h2>Marketplace de livros CIC</h2>
         <br/>
         <Row>
           <Col sm={4}>
-            <Button>Cadastrar Vendedor</Button>        
+            <Button onClick={handleClickVendedor} style={{ backgroundColor: '#7159c1', border: 'none' }}>Cadastrar Vendedor</Button>        
           </Col>
           <Col sm={4}>
-            <Button>Adcionar catalogos de Livros</Button>        
+            <Button onClick={handleClickAdcionar} style={{ backgroundColor: '#7159c1', border: 'none' }}> Adcionar catalogos de Livros</Button>        
           </Col>
           <Col sm={4}>
-            <Button>Submeter Livros</Button>        
+            <Button style={{ backgroundColor: '#7159c1', border: 'none' }} >Submeter Livros</Button>        
           </Col>
           
         </Row>

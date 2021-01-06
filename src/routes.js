@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom';
 
 import Vendedor from './pages/Vendedor';
+import Catalagos from './pages/Catalagos'
 import Pages from './pages'
 
 /*
@@ -20,7 +21,9 @@ const Routes = () => (
   
     <Switch >   
         <Route exact path="/" component={Pages} />   
-        <Route exact path="/vendedor" component={Vendedor} />               
+        <Route exact path="/vendedor" component={Vendedor} />   
+        <Route exact path="/catalagos" component={Catalagos} />   
+                    
 
         <Route path="*" component={() => <h1>Page not found</h1>} />
     </Switch>  

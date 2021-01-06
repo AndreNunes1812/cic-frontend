@@ -14,7 +14,7 @@ const initialFormState = {
   ativo: "S",
 };
 
-const Vendedor = () => {
+const Catalogo = () => {
 
   const [currentMarca, setCurrentMarca] = useState(initialFormState);
   const [chk, setChk] = useState(true);
@@ -48,7 +48,7 @@ const Vendedor = () => {
     document.getElementById("form-id").reset();
     setCurrentMarca(initialFormState);
     setChk(true);
-    history.push("/vendedor");
+    history.push("/catalagos");
   };
   const handleSalvar = async (registro) => {
  /*   try {
@@ -90,7 +90,7 @@ const Vendedor = () => {
                   width: "152%",
                 }}
               >
-                <h3>Cadastro de Vendedor - {currentMarca.id}</h3>
+                <h3>Cadastro de Catalogos de Livros - {currentMarca.id}</h3>
               </div>
             </Col>
             <Col sm={4}>
@@ -129,7 +129,7 @@ const Vendedor = () => {
           <Row style={{ paddingTop: "10px" }}>
             <Col sm={4}>
               <Form.Group>
-                <Form.Label>Vendedor</Form.Label>
+                <Form.Label>selecione Vendedor</Form.Label>
                 <Form.Control
                   value={currentMarca.vendedor}
                   type="text"
@@ -158,4 +158,4 @@ const Vendedor = () => {
   );
 };
 
-export default Vendedor;
+export default Catalogo;
