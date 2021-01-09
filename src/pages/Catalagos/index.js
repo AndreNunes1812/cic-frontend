@@ -4,28 +4,43 @@ import { useHistory, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { Form, Button, ButtonGroup, Row, Col } from "react-bootstrap";
 
-// import api from "../../service/api";
+import api from "../service/api";
 
 import "./styles.css";
 
 const initialFormState = {
-  vendedor: "",
-  
+  vendedor_id: '',
+  nome: '',
+  arquivo: '',
+
   ativo: "S",
 };
 
 const Catalogo = () => {
 
-  const [currentMarca, setCurrentMarca] = useState(initialFormState);
+  const [catalagos, setCatalagos] = useState(initialFormState);
+  const [catalagoLivro, setCatalagoLivro] = useState([]);
   const [chk, setChk] = useState(true);
   const [locationAtivo, setLocationAtivo] = useState("");
+  const [selectedVendedor, setSelectedVendedor] = useState('0');
+
 
   const location = useLocation();
   const history = useHistory();
 
+
+  useEffect(() => {
+    const loadVendedor = async () => {
+      const listaVendedor = await api.get('vendedores');      
+      setSelectedVendedor(listaVendedor.data);      
+    }
+    loadVendedor()
+  }, []);
+
+
   useEffect(() => {
     if (location.state !== undefined) {
-      setCurrentMarca(location.state.data);
+      setCatalagos(location.state.data);
     }
   }, [location]);
 
@@ -46,7 +61,7 @@ const Catalogo = () => {
 
   const handleClickNovo = () => {
     document.getElementById("form-id").reset();
-    setCurrentMarca(initialFormState);
+    setCatalagos(initialFormState);
     setChk(true);
     history.push("/catalagos");
   };
@@ -63,15 +78,21 @@ const Catalogo = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setCurrentMarca({ ...currentMarca, [name]: value });
+    setCatalagos({ ...catalagos, [name]: value });
   };
 
   const handleAtivo = () => {
-    setCurrentMarca({
-      ...currentMarca,
-      ativo: currentMarca.ativo === "S" ? "N" : "S",
+    setCatalagos({
+      ...catalagos,
+      ativo: catalagos.ativo === "S" ? "N" : "S",
     });
   };
+
+  function handleSelectedVendedor(event) {
+    const seg = event.target.value;
+    setSelectedVendedor(seg);
+  }
+
 
   function handleChange() {
     setChk(!chk);
@@ -90,7 +111,7 @@ const Catalogo = () => {
                   width: "152%",
                 }}
               >
-                <h3>Cadastro de Catalogos de Livros - {currentMarca.id}</h3>
+                <h3>Cadastro de Catalogos de Livros - {catalagos.id}</h3>
               </div>
             </Col>
             <Col sm={4}>
@@ -102,7 +123,7 @@ const Catalogo = () => {
                   Novo
                 </Button>
                 <Button
-                  onClick={() => handleSalvar(currentMarca)}
+                  onClick={() => handleSalvar(catalagos)}
                   style={{
                     backgroundColor: "#7159c1",
                     border: "none",
@@ -127,11 +148,31 @@ const Catalogo = () => {
           </Row>
 
           <Row style={{ paddingTop: "10px" }}>
+          <Col sm={4}>
+              <Form.Group>
+                <Form.Label>Vendedor</Form.Label>
+                <Form.Control 
+                  as="select"
+                  id="vendedor_id"
+                  name="vendedor_id"
+                  onChange={handleSelectedVendedor}
+                  value={selectedVendedor}
+                >
+                  <option value={"0"}>Selecione</option>
+                  {
+                    catalagoLivro.map(seg => {
+                    return <option key={String(seg.id)} onChange={handleSelectedVendedor} value={seg.id}>{seg.nome}</option>
+                    })
+                  }
+
+                </Form.Control>
+              </Form.Group>
+            </Col> 
             <Col sm={4}>
               <Form.Group>
-                <Form.Label>selecione Vendedor</Form.Label>
+                <Form.Label>Adcionar catalago(s)</Form.Label>
                 <Form.Control
-                  value={currentMarca.vendedor}
+                  value={catalagos.vendedor}
                   type="text"
                   id="vendedor"
                   name="vendedor"
@@ -140,6 +181,7 @@ const Catalogo = () => {
               </Form.Group>
             </Col>
   
+
             <Col sm={4}>
               <Form.Group>
                 <Form.Check.Label style={{ padding: 25 }}>

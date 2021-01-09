@@ -4,20 +4,21 @@ import { useHistory, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { Form, Button, ButtonGroup, Row, Col } from "react-bootstrap";
 
-// import api from "../../service/api";
+import api from "../service/api";
 
 import "./styles.css";
 
 const initialFormState = {
-  vendedor: "",
-  
+  id: '',
+  nome: "",  
   ativo: "S",
 };
 
 const Vendedor = () => {
 
-  const [currentMarca, setCurrentMarca] = useState(initialFormState);
+  const [vendedor, setVendedor] = useState(initialFormState);
   const [chk, setChk] = useState(true);
+  
   const [locationAtivo, setLocationAtivo] = useState("");
 
   const location = useLocation();
@@ -25,7 +26,7 @@ const Vendedor = () => {
 
   useEffect(() => {
     if (location.state !== undefined) {
-      setCurrentMarca(location.state.data);
+      setVendedor(location.state.data);
     }
   }, [location]);
 
@@ -46,30 +47,30 @@ const Vendedor = () => {
 
   const handleClickNovo = () => {
     document.getElementById("form-id").reset();
-    setCurrentMarca(initialFormState);
+    setVendedor(initialFormState);
     setChk(true);
     history.push("/vendedor");
   };
   const handleSalvar = async (registro) => {
- /*   try {
+    try {
       const response =
         registro.id !== undefined
-          ? await api.put(`/marca/${registro.id}`, registro)
-          : await api.post(`/marca`, registro);
-      setCurrentMarca(response.data);
+          ? await api.put(`/vendedor/${registro.id}`, registro)
+          : await api.post(`/vendedor`, registro);
+      setVendedor(response.data);
     } catch (error) {}
-    */
+ 
   };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setCurrentMarca({ ...currentMarca, [name]: value });
+    setVendedor({ ...vendedor, [name]: value });
   };
 
   const handleAtivo = () => {
-    setCurrentMarca({
-      ...currentMarca,
-      ativo: currentMarca.ativo === "S" ? "N" : "S",
+    setVendedor({
+      ...vendedor,
+      ativo: vendedor.ativo === "S" ? "N" : "S",
     });
   };
 
@@ -90,7 +91,7 @@ const Vendedor = () => {
                   width: "152%",
                 }}
               >
-                <h3>Cadastro de Vendedor - {currentMarca.id}</h3>
+                <h3>Cadastro de Vendedor - {vendedor.id}</h3>
               </div>
             </Col>
             <Col sm={4}>
@@ -102,7 +103,7 @@ const Vendedor = () => {
                   Novo
                 </Button>
                 <Button
-                  onClick={() => handleSalvar(currentMarca)}
+                  onClick={() => handleSalvar(vendedor)}
                   style={{
                     backgroundColor: "#7159c1",
                     border: "none",
@@ -131,10 +132,10 @@ const Vendedor = () => {
               <Form.Group>
                 <Form.Label>Vendedor</Form.Label>
                 <Form.Control
-                  value={currentMarca.vendedor}
+                  value={vendedor.nome}
                   type="text"
-                  id="vendedor"
-                  name="vendedor"
+                  id="nome"
+                  name="nome"
                   onChange={handleInputChange}
                 />
               </Form.Group>
