@@ -19,7 +19,7 @@ const initialFormState = {
 const Catalogo = () => {
 
   const [catalagos, setCatalagos] = useState(initialFormState);
-  const [catalagoLivro, setCatalagoLivro] = useState([]);
+  const [catalagoLivro] = useState([]);
   const [chk, setChk] = useState(true);
   const [locationAtivo, setLocationAtivo] = useState("");
   const [selectedVendedor, setSelectedVendedor] = useState('0');

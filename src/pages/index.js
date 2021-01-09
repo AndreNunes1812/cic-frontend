@@ -19,10 +19,6 @@ const Pages = () => {
 
   const history = useHistory();
 
-  const handleClickVendedor=()=> {
-    history.push("/vendedor");
-  }
-
   const handleClickVendedorFiltro=()=> {
     history.push("/filtrovendedor");
   }
