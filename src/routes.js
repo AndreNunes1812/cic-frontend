@@ -5,8 +5,9 @@ import Vendedor from './pages/Vendedor';
 import Catalagos from './pages/Catalagos'
 import Pages from './pages'
 
+
+import FiltrosVendedor from './pages/Vendedor/Filtro'
 /*
-import FiltrosMarca from './pages/Cadastros/Marca/Filtro'
 import FiltrosProfissional from './pages/Cadastros/Profissional/Filtro'
 import FiltrosProfissao from './pages/Cadastros/Profissao/Filtro'
 import FiltrosSegmento from './pages/Cadastros/Segmento/Filtro'
@@ -22,6 +23,11 @@ const Routes = () => (
     <Switch >   
         <Route exact path="/" component={Pages} />   
         <Route exact path="/vendedor" component={Vendedor} />   
+        <Route exact path="/vendedor/:id" component={Vendedor} />   
+       
+        <Route exact path="/filtrovendedor" component={FiltrosVendedor} />   
+
+
         <Route exact path="/catalagos" component={Catalagos} />   
                     
 

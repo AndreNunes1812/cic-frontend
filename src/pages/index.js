@@ -23,6 +23,11 @@ const Pages = () => {
     history.push("/vendedor");
   }
 
+  const handleClickVendedorFiltro=()=> {
+    history.push("/filtrovendedor");
+  }
+
+
   const handleClickAdcionar=()=> {
     history.push("/catalagos");
   }
@@ -33,7 +38,7 @@ const Pages = () => {
         <br/>
         <Row>
           <Col sm={4}>
-            <Button onClick={handleClickVendedor} style={{ backgroundColor: '#7159c1', border: 'none' }}>Cadastrar Vendedor</Button>        
+            <Button onClick={handleClickVendedorFiltro} style={{ backgroundColor: '#7159c1', border: 'none' }}>Consulta Vendedor</Button>        
           </Col>
           <Col sm={4}>
             <Button onClick={handleClickAdcionar} style={{ backgroundColor: '#7159c1', border: 'none' }}> Adcionar catalogos de Livros</Button>        
@@ -43,6 +48,8 @@ const Pages = () => {
           </Col>
           
         </Row>
+        <br/>
+
         
         
       </Container>

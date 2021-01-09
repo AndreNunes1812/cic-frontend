@@ -9,7 +9,7 @@ import api from "../service/api";
 import "./styles.css";
 
 const initialFormState = {
-  id: '',
+  id: undefined,
   nome: "",  
   ativo: "S",
 };
@@ -52,6 +52,7 @@ const Vendedor = () => {
     history.push("/vendedor");
   };
   const handleSalvar = async (registro) => {
+    console.log('Registro id:', registro.id)
     try {
       const response =
         registro.id !== undefined
@@ -91,7 +92,7 @@ const Vendedor = () => {
                   width: "152%",
                 }}
               >
-                <h3>Cadastro de Vendedor - {vendedor.id}</h3>
+                <h3>Cadastro de Vendedor - {vendedor.id !== undefined ? 'modúlo de edição': '' }</h3>
               </div>
             </Col>
             <Col sm={4}>
@@ -114,7 +115,7 @@ const Vendedor = () => {
                 </Button>
 
                 <Button
-                  onClick={() => history.push("/")}
+                  onClick={() => history.push("/filtrovendedor")}
                   style={{
                     backgroundColor: "#7159c1",
                     border: "none",
