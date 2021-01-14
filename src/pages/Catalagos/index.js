@@ -16,7 +16,6 @@ const initialFormState = {
 };
 
 const Catalogo = () => {
-
   const [catalagos, setCatalagos] = useState(initialFormState);
   const [chk, setChk] = useState(true);
   const [locationAtivo, setLocationAtivo] = useState("");
@@ -63,42 +62,39 @@ const Catalogo = () => {
   };
 
   const handleSalvar = async (registro) => {
-
-    console.log('Registro:', registro);
+    console.log("Registro:", registro);
 
     const registroCatalago = {
       vendedor_id: selectedVendedor,
-    } 
-     
+    };
+
     try {
       const response =
         registro.id !== undefined
           ? await api.put(`/catalago/${registro.id}`, registroCatalago)
           : await api.post(`/catalago`, registroCatalago);
 
-       const data = new FormData();
-          data.append('vendedor_id', selectedVendedor);
-          data.append('cvs', catalagos.file );
-          data.append('id',  response.data.id );
+      if (registro.id === undefined) {
+        const data = new FormData();
+        data.append("vendedor_id", selectedVendedor);
+        data.append("cvs", catalagos.file);
+        data.append("id", response.data.id);
 
-          const responseCVS = await api.patch(`/catalago/cvs`, data, 
-      { 
-        headers: { 'Content-Type': 'multipart/form-data' } 
-      });
+        const responseCVS = await api.patch(`/catalago/cvs`, data, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
 
-      console.log('responseCVS', responseCVS)
-
+        console.log("responseCVS", responseCVS);
+      }
       setCatalagos(response.data);
     } catch (error) {}
-    
   };
 
   const handleInputChange = (event) => {
-    const {name, value} = event.target;    
-    setCatalagos({ ...catalagos, [name]: value, 'file': event.target.files[0]});
-    console.log('Event:', event.target.files[0])
+    const { name, value } = event.target;
+    setCatalagos({ ...catalagos, [name]: value, file: event.target.files[0] });
+    console.log("Event:", event.target.files[0]);
   };
-
 
   const handleAtivo = () => {
     setCatalagos({
@@ -130,7 +126,10 @@ const Catalogo = () => {
                 width: "152%",
               }}
             >
-              <h3>Cadastro de Catalogos de Livros - {catalagos.id !== undefined ? 'modúlo de edição': '' }</h3>
+              <h3>
+                Cadastro de Catalogos de Livros -{" "}
+                {catalagos.id !== undefined ? "modúlo de edição" : ""}
+              </h3>
             </div>
           </Col>
           <Col sm={4}>
